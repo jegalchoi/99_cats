@@ -1,0 +1,47 @@
+
+<table>
+  <colgroup span="4"></colgroup>
+  <tr>
+    <th>Name</th>
+    <th>Birth Date</th>
+    <th>Color</th>
+    <th>Sex</th>
+    <th>Description</th>
+  </tr>
+  <tr>
+    <td><%= @cat.name %></td>
+    <td><%= @cat.birth_date %></td>
+    <td><%= @cat.color %></td>
+    <td><%= @cat.sex %></td>
+    <td><%= @cat.description %></td>
+  </tr>
+</table>
+
+<br>
+
+<label for="cat_rental_requests">Rental Requests</label>
+<br>
+<% @cat_rental_requests.each do |cat_rental_request| %>
+  START DATE: <%= cat_rental_request.start_date %>
+  END DATE: <%= cat_rental_request.end_date %>
+  STATUS: <%= cat_rental_request.status %>
+  <% if cat_rental_request.pending? %>    
+    <form action="<%= approve_cat_rental_request_url(cat_rental_request) %>" method="GET">
+      <input type="hidden" name="_method" value="APPROVE">
+      <input type="submit" value="Approve Request">
+    </form>
+    <form action="<%= deny_cat_rental_request_url(cat_rental_request) %>" method="GET">
+      <input type="hidden" name="_method" value="DENY">
+      <input type="submit" value="Deny Request">
+    </form>
+    <br>
+  <% end %>
+  <br><br>
+<% end %>
+
+<br>
+
+<ul>
+  <li><a href="<%= edit_cat_url(@cat) %>">Edit <%= @cat.name %></a></li>
+  <li><a href="<%= cats_url %>">Index</a></li>  
+</ul>

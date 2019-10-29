@@ -1,0 +1,10 @@
+<li>
+  <a href="<%= cat_url(cat) %>"><%= cat.name %></a>
+</li>
+<li>
+  <form action="<%= cat_url(cat) %>" method="POST">
+    <input type="hidden" name="_method" value="DELETE">  
+    <input type="submit" value="DELETE">
+  </form>
+</li>
+    

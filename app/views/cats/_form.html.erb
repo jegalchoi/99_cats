@@ -1,0 +1,56 @@
+
+<% if action == :edit %>
+  <% action_url = cat_url(cat) %>
+<% else %>
+  <% action_url = cats_url %>
+<% end %>
+
+<form action="<%= action_url %>" method="POST">
+  <% if action == :edit %>
+    <input type="hidden" name="_method" value="PATCH">
+  <% end %>
+
+  <label for="name">Name</label>
+  <input id="name" type="text" name="cat[name]" value="<%= cat.name %>">
+
+  <br>
+
+  <label for="sex">Sex:</label>
+  <% Cat::GENDERS.each do |gender| %>
+    <label for="<%= gender %>"><%= gender %></label>
+    <input type="radio" id="<%= gender %>" name="cat[sex]" value="<%= gender %>" <%= "checked" if cat.sex == gender %>>  
+  <% end %>
+
+  <br>
+
+  <label for="color">Color</label>
+  <select name="cat[color]" id="color">
+  <option>-- Select a Color --</option>
+    <% Cat::COLORS.each do |color| %>
+      <option value="<%= color %>" 
+        <%= cat.color ? "selected" : "" %>>
+      <%= color.upcase %>
+      </option> 
+    <% end %>
+  </select>
+
+  <br>
+
+  <label for="birth_date">Birth Date</label>
+  <input id="birth_date" type="date" name="cat[birth_date]" value="<%= cat.birth_date %>">
+  <br><br>
+  
+
+  <label for="description">Description</label>
+  <textarea name="cat[description]" id="description">
+    <%= cat.description %>
+  </textarea>
+
+  <br><br>
+
+  <input type="submit" value="<%= (action == :edit) ? 'Update Cat' : 'Add Cat' %>"> 
+</form>
+
+<br>
+
+<a href="<%= cats_url %>">Index</a>
